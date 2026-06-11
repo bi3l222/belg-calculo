@@ -204,6 +204,35 @@ header h1{
 
 }
 
+.footer-fixo{
+    position:fixed;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+
+    background:rgba(0,0,0,.85);
+    border:1px solid #FFD700;
+
+    padding:10px 20px;
+    border-radius:12px;
+
+    color:white;
+    font-size:14px;
+    font-weight:500;
+
+    z-index:99999;
+}
+
+.footer-fixo a{
+    color:#FFD700;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.footer-fixo a:hover{
+    color:white;
+}
+
 </style>
 </head>
 <body>
@@ -253,6 +282,13 @@ TOTAL<br>
 R$ <span id="total">0</span>
 </div>
 
+</div>
+
+<div class="footer-fixo">
+    Criado por
+    <a href="https://discord.com/users/1339514774601470014" target="_blank">
+        Bielk1ng$
+    </a>
 </div>
 
 <script>
