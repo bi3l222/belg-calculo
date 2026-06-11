@@ -209,44 +209,39 @@ header h1{
     bottom:15px;
     left:50%;
     transform:translateX(-50%);
-
-    background:linear-gradient(45deg,#FFD700,#FFC107);
-    color:black;
-
-    padding:12px 25px;
-    border-radius:12px;
-
-    text-decoration:none;
-    font-weight:bold;
-    font-size:15px;
-    text-align:center;
-
     z-index:99999;
-
-    box-shadow:0 0 15px rgba(255,215,0,.7);
-
-    animation:pulsar 1.5s infinite;
 }
 
-.footer-fixo:hover{
-    color:black;
+/* CELULAR */
+@media (max-width:768px){
+
+    .footer-fixo{
+        position:fixed;
+
+        bottom:0;
+        left:0;
+        right:0;
+
+        width:100%;
+        transform:none;
+
+        border-radius:15px 15px 0 0;
+
+        text-align:center;
+
+        padding:12px;
+    }
+
 }
 
-@keyframes pulsar{
-    0%{
-        transform:translateX(-50%) scale(1);
-        box-shadow:0 0 10px rgba(255,215,0,.5);
-    }
+.credito{
+    margin-top:10px;
+    font-size:14px;
+}
 
-    50%{
-        transform:translateX(-50%) scale(1.08);
-        box-shadow:0 0 30px rgba(255,215,0,1);
-    }
-
-    100%{
-        transform:translateX(-50%) scale(1);
-        box-shadow:0 0 10px rgba(255,215,0,.5);
-    }
+.credito a{
+    color:#0000EE;
+    font-weight:bold;
 }
 
 </style>
