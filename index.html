@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bélgica Muamba</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    linear-gradient(90deg,#000 0%,#111 30%,#8b0000 100%);
+    color:white;
+}
+
+/* LOGIN */
+
+#loginPage{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:400px;
+    max-width:90%;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,215,0,.3);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+}
+
+.logo{
+    width:180px;
+    margin-bottom:20px;
+}
+
+.login-box h1{
+    color:#FFD700;
+    margin-bottom:20px;
+}
+
+.login-box input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    margin-bottom:10px;
+    font-size:16px;
+}
+
+.login-box button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#FFD700;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.login-box button:hover{
+    transform:scale(1.03);
+}
+
+/* SISTEMA */
+
+#sistema{
+    display:none;
+}
+
+header{
+    background:#000;
+    padding:20px;
+    text-align:center;
+    border-bottom:2px solid #FFD700;
+}
+
+header h1{
+    color:#FFD700;
+}
+
+.modo{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:20px;
+}
+
+.modo button{
+    padding:15px 30px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.ativo{
+    background:#FFD700;
+    color:black;
+}
+
+.inativo{
+    background:#333;
+    color:white;
+}
+
+.itens{
+    width:95%;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    padding-bottom:120px;
+}
+
+.card{
+    background:#1b1b1b;
+    border:1px solid rgba(255,215,0,.4);
+    border-radius:15px;
+    padding:15px;
+}
+
+.nome{
+    color:#FFD700;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.preco{
+    color:#bbb;
+    margin-bottom:10px;
+}
+
+.controle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.controle button{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:10px;
+    background:#FFD700;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.controle input{
+    width:70px;
+    text-align:center;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+}
+
+.total-box{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+
+    background:#FFD700;
+    color:black;
+
+    padding:20px;
+    border-radius:15px;
+
+    box-shadow:0 0 20px rgba(255,215,0,.5);
+
+    font-weight:bold;
+    font-size:25px;
+}
+
+@media(max-width:768px){
+
+.itens{
+    grid-template-columns:1fr;
+}
+
+.total-box{
+    right:10px;
+    left:10px;
+    text-align:center;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <img src="A92A41C7-54C4-44C1-9157-89292A24C54E.jpeg" class="logo">
+
+        <h1>BÉLGICA MUAMBA</h1>
+
+        <input type="text" id="usuario" placeholder="Usuário">
+
+        <input type="password" id="senha" placeholder="Senha">
+
+        <button onclick="login()">ENTRAR</button>
+
+    </div>
+
+</div>
+
+<div id="sistema">
+
+<header>
+    <h1>BÉLGICA MUAMBA - ÁREA 24</h1>
+</header>
+
+<div class="modo">
+
+<button id="semBtn" class="ativo"
+onclick="trocarModo('sem')">
+SEM PARCERIA
+</button>
+
+<button id="comBtn" class="inativo"
+onclick="trocarModo('com')">
+COM PARCERIA
+</button>
+
+</div>
+
+<div class="itens" id="itens"></div>
+
+<div class="total-box">
+TOTAL<br>
+R$ <span id="total">0</span>
+</div>
+
+</div>
+
+<script>
+
+const USER = "admin";
+const PASS = "belg123";
+
+function login(){
+
+let user =
+document.getElementById("usuario").value;
+
+let pass =
+document.getElementById("senha").value;
+
+if(user === USER && pass === PASS){
+
+document.getElementById("loginPage").style.display="none";
+document.getElementById("sistema").style.display="block";
+
+renderizar();
+
+}else{
+
+alert("Usuário ou senha incorretos");
+
+}
+
+}
+
+let modo = "sem";
+
+const precos = {
+
+sem:{
+Lockpick:40000,
+Placa:40000,
+C4:25000,
+Masterpick:80000,
+Algema:50000,
+Laco:30000,
+Celular:4000,
+Mochila:4000,
+Radio:3000,
+Mascara:12000,
+Roupas:4000,
+Rastreador:100000,
+Keycard:50000
+},
+
+com:{
+Lockpick:30000,
+Placa:30000,
+C4:10000,
+Masterpick:70000,
+Algema:40000,
+Laco:20000,
+Celular:3000,
+Mochila:3000,
+Radio:2000,
+Mascara:10000,
+Roupas:3000,
+Rastreador:90000,
+Keycard:40000
+}
+
+};
+
+function trocarModo(novo){
+
+modo = novo;
+
+document.getElementById("semBtn")
+.className =
+modo === "sem" ? "ativo" : "inativo";
+
+document.getElementById("comBtn")
+.className =
+modo === "com" ? "ativo" : "inativo";
+
+renderizar();
+
+}
+
+function renderizar(){
+
+let html = "";
+
+for(let item in precos[modo]){
+
+html += `
+
+<div class="card">
+
+<div class="nome">${item}</div>
+
+<div class="preco">
+R$ ${precos[modo][item].toLocaleString('pt-BR')}
+</div>
+
+<div class="controle">
+
+<button onclick="alterar('${item}',-1)">
+-
+</button>
+
+<input
+type="number"
+id="${item}"
+value="${quantidades[item] || 0}"
+oninput="calcular()"
+>
+
+<button onclick="alterar('${item}',1)">
++
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+document.getElementById("itens").innerHTML = html;
+
+calcular();
+
+}
+
+let quantidades = {};
+
+function alterar(item, valor){
+
+let campo =
+document.getElementById(item);
+
+let atual =
+parseInt(campo.value) || 0;
+
+atual += valor;
+
+if(atual < 0)
+atual = 0;
+
+campo.value = atual;
+
+calcular();
+
+}
+
+function calcular(){
+
+let total = 0;
+
+for(let item in precos[modo]){
+
+let qtd =
+parseInt(document.getElementById(item)?.value) || 0;
+
+quantidades[item] = qtd;
+
+total += qtd * precos[modo][item];
+
+}
+
+document.getElementById("total").innerText =
+total.toLocaleString("pt-BR");
+
+}
+
+</script>
+
+</body>
+</html>
